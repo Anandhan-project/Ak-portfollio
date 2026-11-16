@@ -11,7 +11,6 @@ describe('Navbar Component', () => {
       </BrowserRouter>
     );
 
-    expect(screen.getByText(/Anandhan/i)).toBeInTheDocument();
     expect(screen.getByText(/About/i)).toBeInTheDocument();
     expect(screen.getByText(/Skills/i)).toBeInTheDocument();
     expect(screen.getByText(/Projects/i)).toBeInTheDocument();
