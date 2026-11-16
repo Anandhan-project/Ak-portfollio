@@ -17,7 +17,7 @@ export interface PlasmaConfig {
   paused: boolean;
 }
 
-export type ProjectCategory = 'all' | 'frontend' | 'fullstack' | 'interactive' | 'tools';
+export type ProjectCategory = 'all' | 'python' | 'fullstack' | 'interactive' | 'tools' | 'backend';
 
 export interface Project {
   id: string;
@@ -45,6 +45,7 @@ export interface SkillItem {
   level: number; // 0 to 100
   badge: string;
   highlight?: boolean;
+  iconName?: string;
 }
 
 export interface SkillCategory {

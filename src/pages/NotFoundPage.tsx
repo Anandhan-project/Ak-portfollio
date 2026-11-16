@@ -1,25 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Home, AlertCircle } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export const NotFoundPage: React.FC = () => {
   return (
     <div className="min-h-[75vh] flex flex-col items-center justify-center text-center px-4">
-      <div className="w-16 h-16 rounded-3xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-6 border border-purple-500/30">
-        <AlertCircle className="w-8 h-8" />
+      <div className="space-y-4 max-w-md">
+        <span className="text-xs font-mono uppercase tracking-widest text-zinc-500">
+          404 // NOT FOUND
+        </span>
+        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white editorial-title">
+          Page Not Located
+        </h1>
+        <p className="text-sm text-zinc-400 leading-relaxed">
+          The requested coordinate or article could not be resolved in this publication.
+        </p>
+        <div className="pt-4">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-zinc-100 text-zinc-950 font-medium text-xs hover:bg-white transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Return to Portfolio</span>
+          </Link>
+        </div>
       </div>
-      <h1 className="text-5xl font-extrabold text-white mb-2 font-mono">404</h1>
-      <h2 className="text-2xl font-bold text-slate-200 mb-4">Signal Lost in Deep Space</h2>
-      <p className="text-slate-400 max-w-md mb-8">
-        The coordinate you are navigating to does not exist or has been shifted in hyperspace.
-      </p>
-      <Link
-        to="/"
-        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-purple-600/30 hover:scale-105 transition-all"
-      >
-        <Home className="w-4 h-4" />
-        <span>Return to Portfolio Home</span>
-      </Link>
     </div>
   );
 };

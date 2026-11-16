@@ -1,117 +1,162 @@
-import React from 'react';
-import { ArrowRight, Download, Mail, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, Download, Mail, Check } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 import { personalInfo } from '../../data/portfolioData';
 
 export const HeroSection: React.FC = () => {
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+
+  const handleDownloadResume = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const resumeContent = `# ${personalInfo.name.toUpperCase()}
+${personalInfo.role}
+Email: ${personalInfo.email} | Location: ${personalInfo.location}
+GitHub: ${personalInfo.github} | LinkedIn: ${personalInfo.linkedin}
+
+===================================================================
+SUMMARY
+===================================================================
+${personalInfo.tagline}
+
+===================================================================
+CORE TECHNICAL SKILLS
+===================================================================
+- Frontend: React 18+, TypeScript, Tailwind CSS, Next.js, HTML5 Semantic A11y, Modern CSS
+- Backend: Node.js, Express, RESTful APIs, GraphQL, Serverless Functions
+- Languages: TypeScript, JavaScript (ES6+), SQL, Python
+- Databases: PostgreSQL, MongoDB, SQLite, Redis, Supabase
+- Tooling & DevOps: Vite, Git, GitHub Actions CI/CD, Vitest, Jest, Chrome DevTools
+
+===================================================================
+EDUCATION
+===================================================================
+BCA (2023 - 2026)
+Yenepoya University Affiliated College of Engineering
+7.9 GPA
+`;
+
+    const blob = new Blob([resumeContent], { type: 'text/markdown;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `${personalInfo.name}_Resume.md`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setDownloadSuccess(true);
+    setTimeout(() => setDownloadSuccess(false), 3500);
+  };
+
+  const scrollToProjects = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const element = document.getElementById('projects');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section
       id="hero"
-      aria-label="Hero Overview"
-      className="relative min-h-[92vh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden"
+      aria-label="Hero Introduction"
+      className="relative min-h-[90vh] flex flex-col justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto z-10"
     >
-      <div className="relative max-w-5xl mx-auto text-center z-10">
-        {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card border border-purple-500/30 text-xs font-medium text-purple-300 mb-8 animate-in fade-in slide-in-from-top-4 duration-500">
+      <div className="space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-500">
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-zinc-800 bg-zinc-900/60 dark:bg-zinc-900/80 text-xs font-mono text-zinc-300">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span>{personalInfo.availability}</span>
+          <span className="text-zinc-300 dark:text-zinc-300">{personalInfo.availability}</span>
         </div>
 
-        {/* Main Title & Role */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
-          Hi, I'm{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-pink-400 animate-pulse-glow">
+        <div className="space-y-3">
+          <p className="text-sm sm:text-base font-mono text-zinc-400 tracking-wide uppercase">
+            Hello, I'm
+          </p>
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tight text-zinc-100 dark:text-white editorial-title">
             {personalInfo.name}
-          </span>
-          <br />
-          <span className="text-3xl sm:text-5xl lg:text-6xl text-slate-200 font-bold block mt-2">
+          </h1>
+          <p className="text-2xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-zinc-400 dark:text-zinc-400">
             {personalInfo.role}
-          </span>
-        </h1>
+          </p>
+        </div>
 
-        {/* Short Introduction */}
-        <p className="max-w-2xl mx-auto text-lg sm:text-xl text-slate-300 leading-relaxed mb-10 font-normal">
+        <p className="max-w-2xl text-base sm:text-lg text-zinc-400 dark:text-zinc-400 leading-relaxed font-normal">
           {personalInfo.tagline}
         </p>
 
-        {/* Call to Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-12">
+        <div className="flex flex-wrap items-center gap-4 pt-2">
           <a
             href="#projects"
-            className="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-semibold text-sm shadow-xl shadow-purple-600/30 hover:shadow-cyan-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
+            onClick={scrollToProjects}
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-zinc-100 text-zinc-950 hover:bg-white dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-100 font-medium text-sm transition-all shadow-md hover:scale-[1.02] active:scale-[0.98]"
           >
-            <span>Explore Projects</span>
+            <span>View Projects</span>
             <ArrowRight className="w-4 h-4" />
           </a>
-
-          <a
-            href="#contact"
-            className="flex items-center gap-2 px-6 py-3.5 rounded-xl glass-panel hover:bg-white/10 text-slate-200 hover:text-white font-semibold text-sm border border-white/15 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+          <button
+            onClick={handleDownloadResume}
+            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-900 text-zinc-300 hover:text-white dark:border-zinc-800 dark:hover:border-zinc-700 font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Mail className="w-4 h-4 text-purple-400" />
-            <span>Get in Touch</span>
-          </a>
+            {downloadSuccess ? (
+              <>
+                <Check className="w-4 h-4 text-emerald-400" />
+                <span className="text-emerald-400">Resume Downloaded</span>
+              </>
+            ) : (
+              <>
+                <Download className="w-4 h-4 text-zinc-400" />
+                <span>Download Resume</span>
+              </>
+            )}
+          </button>
 
-          <a
-            href="#about"
-            className="flex items-center gap-2 px-5 py-3.5 rounded-xl glass-card text-slate-300 hover:text-white font-medium text-sm transition-colors"
-          >
-            <Download className="w-4 h-4 text-cyan-400" />
-            <span>View Resume</span>
-          </a>
-        </div>
-
-        {/* Plasma Motion Interactive Hint Banner */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/60 border border-purple-500/20 text-xs text-slate-400 backdrop-blur-md mb-12">
-          <Sparkles className="w-3.5 h-3.5 text-cyan-400 animate-spin-slow" />
-          <span>Interactive Plasma Field Active: move your cursor or tap to perturb live energy waves</span>
-        </div>
-
-        {/* Key Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          {personalInfo.stats.map((stat, idx) => (
-            <div
-              key={idx}
-              className="glass-card p-4 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-all duration-300 hover:-translate-y-1"
+          <div className="flex items-center gap-2 sm:ml-4 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-zinc-800/80 sm:pl-4">
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub Profile"
+              className="p-3 rounded-full border border-zinc-800/80 bg-zinc-900/50 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
             >
-              <div className="text-2xl sm:text-3xl font-extrabold font-mono text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-300">
+              <GithubIcon className="w-4 h-4" />
+            </a>
+
+            <a
+              href={personalInfo.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn Profile"
+              className="p-3 rounded-full border border-zinc-800/80 bg-zinc-900/50 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
+            >
+              <LinkedinIcon className="w-4 h-4" />
+            </a>
+
+            <a
+              href={`mailto:${personalInfo.email}`}
+              aria-label="Send direct email"
+              className="p-3 rounded-full border border-zinc-800/80 bg-zinc-900/50 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
+            >
+              <Mail className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <div className="pt-8 border-t border-zinc-800/60 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-3xl">
+          {personalInfo.stats.map((stat, idx) => (
+            <div key={idx} className="space-y-1">
+              <div className="text-2xl sm:text-3xl font-bold font-mono tracking-tight text-zinc-100 dark:text-zinc-100">
                 {stat.value}
               </div>
-              <div className="text-xs text-slate-400 mt-1 font-medium">{stat.label}</div>
+              <div className="text-xs font-mono uppercase tracking-wider text-zinc-500">
+                {stat.label}
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* Social Icons Quick Row */}
-        <div className="flex items-center justify-center gap-3 mt-10">
-          <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="GitHub Profile"
-            className="p-3 rounded-full glass-card text-slate-400 hover:text-white hover:border-purple-500/40 transition-all duration-200 hover:scale-110"
-          >
-            <GithubIcon className="w-5 h-5" />
-          </a>
-          <a
-            href={personalInfo.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="LinkedIn Profile"
-            className="p-3 rounded-full glass-card text-slate-400 hover:text-white hover:border-cyan-500/40 transition-all duration-200 hover:scale-110"
-          >
-            <LinkedinIcon className="w-5 h-5" />
-          </a>
-          <a
-            href={`mailto:${personalInfo.email}`}
-            aria-label="Send Email"
-            className="p-3 rounded-full glass-card text-slate-400 hover:text-white hover:border-pink-500/40 transition-all duration-200 hover:scale-110"
-          >
-            <Mail className="w-5 h-5" />
-          </a>
         </div>
       </div>
     </section>
