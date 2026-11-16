@@ -7,9 +7,7 @@ import { ProjectModal } from '../projects/ProjectModal';
 const CATEGORIES: { id: ProjectCategory; label: string }[] = [
   { id: 'all', label: 'All Projects' },
   { id: 'fullstack', label: 'Full Stack' },
-  { id: 'frontend', label: 'Frontend UI' },
-  { id: 'interactive', label: 'Interactive / Canvas' },
-  { id: 'tools', label: 'Dev Tools' },
+  { id: 'interactive', label: 'pyhton' },
 ];
 
 export const ProjectsSection: React.FC = () => {
@@ -41,36 +39,6 @@ export const ProjectsSection: React.FC = () => {
       </div>
 
       <div className="flex flex-wrap items-center gap-2 mb-10 pb-6 border-b border-zinc-800/80" role="tablist" aria-label="Project category filter">
-        {CATEGORIES.map((cat) => {
-          const count =
-            cat.id === 'all'
-              ? projectsData.length
-              : projectsData.filter((p) => p.category === cat.id).length;
-          const isActive = selectedCategory === cat.id;
-
-          return (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              role="tab"
-              aria-selected={isActive}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-                isActive
-                  ? 'bg-zinc-100 text-zinc-950 dark:bg-white dark:text-zinc-900 shadow-sm font-semibold'
-                  : 'border border-zinc-800/80 bg-zinc-900/40 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
-              }`}
-            >
-              <span>{cat.label}</span>
-              <span
-                className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                  isActive ? 'bg-zinc-900/20 text-zinc-900 dark:bg-zinc-200 text-zinc-900' : 'bg-zinc-800 text-zinc-500'
-                }`}
-              >
-                {count}
-              </span>
-            </button>
-          );
-        })}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
