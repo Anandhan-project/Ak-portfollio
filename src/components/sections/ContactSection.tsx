@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { personalInfo } from '../../data/portfolioData';
-import { ContactFormData, FormFeedback } from '../../types';
-import { Mail, Send, CheckCircle2, AlertCircle, Copy, Check, Clock, ArrowUpRight } from 'lucide-react';
+// import { ContactFormData} from '../../types';
+import { Copy, Check, ArrowUpRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../common/Icons';
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  });
+  // const [formData, setFormData] = useState<ContactFormData>({
+  //   name: '',
+  //   email: '',
+  //   subject: '',
+  //   message: '',
+  // });
 
-  const [errors, setErrors] = useState<Partial<ContactFormData>>({});
-  const [feedback, setFeedback] = useState<FormFeedback>({ type: 'idle' });
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleCopyEmail = () => {
@@ -24,63 +22,14 @@ export const ContactSection: React.FC = () => {
     }
   };
 
-  const validate = (): boolean => {
-    const errs: Partial<ContactFormData> = {};
 
-    if (!formData.name.trim()) {
-      errs.name = 'Please provide your name.';
-    }
-
-    if (!formData.email.trim()) {
-      errs.email = 'Please provide your email address.';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errs.email = 'Please provide a valid email format.';
-    }
-
-    if (!formData.subject.trim()) {
-      errs.subject = 'Please specify a subject.';
-    }
-
-    if (!formData.message.trim()) {
-      errs.message = 'Please enter your message.';
-    } else if (formData.message.trim().length < 10) {
-      errs.message = 'Please enter your message with more detail.';
-    }
-
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validate()) return;
-
-    setFeedback({ type: 'loading', message: 'Sending transmission...' });
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 600));
-      setFeedback({
-        type: 'success',
-        message: 'Thank you! Your message has been dispatched successfully. I typically reply within 24 hours.',
-      });
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setErrors({});
-    } catch {
-      setFeedback({
-        type: 'error',
-        message: 'Something went wrong while dispatching. Please reach out directly via email.',
-      });
-    }
-  };
-
-  const handleMailtoDirect = () => {
-    const subjectParam = encodeURIComponent(formData.subject || 'Portfolio Inquiry');
-    const bodyParam = encodeURIComponent(
-      `Hello Anandhan,\n\n${formData.message || ''}\n\nFrom,\n${formData.name || ''}\n${formData.email || ''}`
-    );
-    window.location.href = `mailto:${personalInfo.email}?subject=${subjectParam}&body=${bodyParam}`;
-  };
+  // const handleMailtoDirect = () => {
+  //   const subjectParam = encodeURIComponent(formData.subject || 'Portfolio Inquiry');
+  //   const bodyParam = encodeURIComponent(
+  //     `Hello Anandhan,\n\n${formData.message || ''}\n\nFrom,\n${formData.name || ''}\n${formData.email || ''}`
+  //   );
+  //   window.location.href = `mailto:${personalInfo.email}?subject=${subjectParam}&body=${bodyParam}`;
+  // };
 
   return (
     <section
