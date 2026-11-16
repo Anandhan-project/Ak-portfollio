@@ -44,7 +44,7 @@
   }
 }
 
-/* Restrained Glassmorphism & Editorial Panels */
+
 .glass-panel {
   background: rgba(18, 18, 21, 0.75);
   backdrop-filter: blur(16px);
