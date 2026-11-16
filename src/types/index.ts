@@ -17,7 +17,7 @@ export interface PlasmaConfig {
   paused: boolean;
 }
 
-export type ProjectCategory = 'all' | 'python' | 'fullstack' | 'interactive' | 'tools' | 'backend';
+export type ProjectCategory = 'all' | 'python' | 'fullstack';
 
 export interface Project {
   id: string;
