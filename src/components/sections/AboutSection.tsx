@@ -19,20 +19,10 @@ SUMMARY
 ${personalInfo.tagline}
 
 ===================================================================
-CORE TECHNICAL SKILLS
+SOCIAL
 ===================================================================
-- Frontend: React 18+, TypeScript, Tailwind CSS, Next.js, HTML5 Semantic A11y, Modern CSS
-- Backend: Node.js, Express, RESTful APIs, GraphQL, Serverless Functions
-- Languages: TypeScript, JavaScript (ES6+), SQL, Python
-- Databases: PostgreSQL, MongoDB, SQLite, Redis, Supabase
-- Tooling & DevOps: Vite, Git, GitHub Actions CI/CD, Vitest, Jest, Chrome DevTools
-
-===================================================================
-EDUCATION
-===================================================================
-BCA (2023 - 2026)
-Yenepoya University Affiliated College of Engineering
-7.9 GPA
+${personalInfo.github}
+${personalInfo.linkedin}
 `;
 
     const blob = new Blob([resumeContent], { type: 'text/markdown;charset=utf-8;' });
