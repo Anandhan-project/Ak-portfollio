@@ -18,11 +18,6 @@ SUMMARY
 ===================================================================
 ${personalInfo.tagline}
 
-===================================================================
-SOCIAL
-===================================================================
-${personalInfo.github}
-${personalInfo.linkedin}
 `;
 
     const blob = new Blob([resumeContent], { type: 'text/markdown;charset=utf-8;' });
